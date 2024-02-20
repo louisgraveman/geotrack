@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoTracker</title>
+</head>
+<body>
+    <h1>GeoTracker</h1>
+    <div id="login-form">
+        <h2>Logowanie dla hosta</h2>
+        <input type="text" id="username" placeholder="Login">
+        <input type="password" id="password" placeholder="Hasło">
+        <button onclick="login()">Zaloguj</button>
+    </div>
+    <div id="map" style="display:none;"></div>
+    <div id="location-info" style="display:none;">
+        <h2>Aktualna lokalizacja:</h2>
+        <p id="latitude">Szerokość: </p>
+        <p id="longitude">Wysokość: </p>
+    </div>
+    <script>
+        // Funkcja logowania
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            // Sprawdzenie czy login i hasło są równe oczekiwanym wartościom
+            if (username === "host" && password === "zaq1@WSX") {
+                // Logowanie pomyślne, ukryj formularz logowania i pokaż mapę
+                document.getElementById("login-form").style.display = "none";
+                document.getElementById("location-info").style.display = "block";
+                showLocation();
+            } else {
+                // Logowanie nieudane, wyświetl komunikat
+                alert("Błąd logowania: Nieprawidłowy login lub hasło.");
+            }
+        }
+
+        // Pobieranie i wyświetlanie danych geolokalizacyjnych
+        function showLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.watchPosition(function(position) {
+                    var lat = position.coords.latitude;
+                    var lon = position.coords.longitude;
+                    // Aktualizacja wartości szerokości i wysokości geograficznej
+                    document.getElementById("latitude").innerText = "Szerokość: " + lat;
+                    document.getElementById("longitude").innerText = "Wysokość: " + lon;
+                });
+            } else {
+                alert("Twoja przeglądarka nie obsługuje Geolocation API.");
+            }
+        }
+    </script>
+</body>
+</html>
