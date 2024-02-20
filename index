@@ -20,29 +20,23 @@
         <p id="longitude">Wysokość: </p>
     </div>
     <script>
-        // Funkcja logowania
         function login() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            // Sprawdzenie czy login i hasło są równe oczekiwanym wartościom
             if (username === "host" && password === "zaq1@WSX") {
-                // Logowanie pomyślne, ukryj formularz logowania i pokaż mapę
                 document.getElementById("login-form").style.display = "none";
                 document.getElementById("location-info").style.display = "block";
                 showLocation();
             } else {
-                // Logowanie nieudane, wyświetl komunikat
                 alert("Błąd logowania: Nieprawidłowy login lub hasło.");
             }
         }
 
-        // Pobieranie i wyświetlanie danych geolokalizacyjnych
         function showLocation() {
             if ("geolocation" in navigator) {
                 navigator.geolocation.watchPosition(function(position) {
                     var lat = position.coords.latitude;
                     var lon = position.coords.longitude;
-                    // Aktualizacja wartości szerokości i wysokości geograficznej
                     document.getElementById("latitude").innerText = "Szerokość: " + lat;
                     document.getElementById("longitude").innerText = "Wysokość: " + lon;
                 });
